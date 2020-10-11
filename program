@@ -1,0 +1,99 @@
+import java.util.*;
+import java.util.Collections;
+import java.util.Arrays;
+public class EmployeeGoodie
+{
+public static void main(String[] args)
+{
+String goodieName[] = new String[10];
+Integer goodiePrice[] = new Integer[10];
+String goodieNm[] = new String[10];
+Integer goodiePr[] = new Integer[10];
+Integer goodieSum[] =new Integer[10];
+Integer goodieDiff[] = new Integer[10];
+//Integer max[] = new Integer[10];
+
+goodieName[0] = "Fitbit Plus";
+goodieName[1] = "Ipod";
+goodieName[2] = "MI Band";
+goodieName[3] = "Cult Pass";
+goodieName[4] = "MacBook Pro";
+goodieName[5] = "Digital Camera";
+goodieName[6] = "Alexa";
+goodieName[7] = "Sandwich Toaster";
+goodieName[8] = "Microwave Oven";
+goodieName[9] = "Scale";
+
+goodiePrice[0] = 7980;
+goodiePrice[1] = 22349;
+goodiePrice[2] = 999;
+goodiePrice[3] = 2799;
+goodiePrice[4] = 229900;
+goodiePrice[5] = 11101;
+goodiePrice[6] = 9999;
+goodiePrice[7] = 2195;
+goodiePrice[8] = 9800;
+goodiePrice[9] = 4999;
+
+Integer num = Integer.parseInt(args[0]);
+
+System.out.println("No. of Employees:"+num);
+
+HashMap<Integer, String> map = new HashMap<>();
+
+for (int i=0;i< goodiePrice.length;i++ )
+{
+map.put(goodiePrice[i], goodieName[i]);
+}
+
+Arrays.sort(goodiePrice);
+
+for (int k=0;k<goodiePrice.length;k++ )
+{
+goodieSum[k] = 0;
+goodieDiff[k] = 0;
+//max[k] = 0;
+}
+
+for (int i=0;i < goodiePrice.length-num; i++ )
+{
+goodieDiff[i] = 0;
+for (int j=i+1;j < i+num;j++ )
+{
+goodieDiff[i] = goodiePrice[j] - goodiePrice[i];
+goodieSum[i] = goodieSum[i] + goodieDiff[i];
+}
+//System.out.println("Difference "+goodieDiff[i]);
+//System.out.println("Sum "+goodieSum[i]);
+}
+
+int index = 0;
+for (int i=0;i<goodiePrice.length-1;i++ )
+{
+for(int j=i+1;j<goodiePrice.length;j++)
+{
+if(goodieSum[i]<goodieSum[j])
+{
+//System.out.println(goodieSum[i]+"~"+goodieSum[j]+"~"+i+"~"+j);
+index = i;
+}
+}
+}
+//System.out.println("Index "+index);
+System.out.println("Here th goodies that are selected for distribution are ");
+Integer arr[] = new Integer[num];
+int k = 0;
+for (int i=index; i<index+num;i++ )
+{
+System.out.println(goodiePrice[i]);
+System.out.println(map.get(goodiePrice[i]));
+arr[k]=goodiePrice[i];
+k=k+1;
+}
+int min = Collections.min(Arrays.asList(arr));
+        int max = Collections.max(Arrays.asList(arr));
+
+//System.out.println("Max :"+max+"Minumum :"+min);
+System.out.println("The difference between choosen goodies with highest price and the lowest price is:"+(max-min));
+}
+}
